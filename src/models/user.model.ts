@@ -21,4 +21,3 @@ export default class UserModel {
     return newUser;
   }
 }
-
