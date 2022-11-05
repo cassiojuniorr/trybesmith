@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import LoginService from '../services/login.service';
-import validateLogin from '../services/validations';
+import { validateLogin } from '../services/validations';
 
 export default class LoginController {
   loginService = new LoginService();

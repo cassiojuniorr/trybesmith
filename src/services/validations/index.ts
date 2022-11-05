@@ -1,7 +1,7 @@
 import Joi from 'joi';
-import { ILogin } from '../../interfaces';
+import { ILogin, IProducts } from '../../interfaces';
 
-const validateLogin = (params: ILogin) => {
+export const validateLogin = (params: ILogin) => {
   const schema = Joi.object({
     username: Joi.string().required(),
     password: Joi.string().required(),
@@ -16,4 +16,13 @@ const validateLogin = (params: ILogin) => {
   return { type: null, message: value };
 };
 
-export default validateLogin;
+export const validateProducts = (product: IProducts) => Joi.object({
+  name: Joi.string().min(3).required().messages({
+    'string.required': '"name" is required',
+    'string.min': '"name" length must be at least 3 characters long',
+  }),
+  amount: Joi.string().min(3).required().messages({
+    'string.required': '"amount" is required',
+    'string.min': '"amount" length must be at least 3 characters long',
+  }),
+}).validate(product);

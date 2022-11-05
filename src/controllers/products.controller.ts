@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import ProductService from '../services/products.service';
+import { validateProducts } from '../services/validations';
 
 export default class ProductsController {
   productService = new ProductService();
@@ -11,7 +12,16 @@ export default class ProductsController {
   }
 
   async create(req: Request, res: Response) {
-    const product = await this.productService.create(req.body);
+    const { name, amount } = req.body;
+    const { error, value } = validateProducts({ name, amount });
+    
+    if (error) {
+      const status = error.message === '"name" is required' 
+      || error.message === '"amount" is required' ? 400 : 422;
+      return res.status(status).json({ message: error.message });
+    }
+
+    const product = await this.productService.create(value);
     res.status(201).json(product);
   }
 }
