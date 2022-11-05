@@ -16,3 +16,9 @@ export interface IOrder {
   id?: number,
   userId: number,
 }
+
+export interface ILogin {
+  id?: number,
+  username: string,
+  password: string,
+}
