@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { ILogin, IProducts } from '../../interfaces';
+import { ILogin, IProducts, IUser } from '../../interfaces';
 
 export const validateLogin = (params: ILogin) => {
   const schema = Joi.object({
@@ -26,3 +26,22 @@ export const validateProducts = (product: IProducts) => Joi.object({
     'string.min': '"amount" length must be at least 3 characters long',
   }),
 }).validate(product);
+
+export const validateUser = (user: IUser) => Joi.object({
+  username: Joi.string().min(3).required().messages({
+    'string.required': '"username" is required',
+    'string.min': '"username" length must be at least 3 characters long',
+  }),
+  classe: Joi.string().min(3).required().messages({
+    'string.required': '"classe" is required',
+    'string.min': '"classe" length must be at least 3 characters long',
+  }),
+  level: Joi.number().min(1).required().messages({
+    'string.required': '"level" is required',
+    'string.min': '"level" must be greater than or equal to 1',
+  }),
+  password: Joi.string().min(8).required().messages({
+    'string.required': '"password" is required',
+    'string.min': '"password" length must be at least 8 characters long',
+  }),
+}).validate(user);

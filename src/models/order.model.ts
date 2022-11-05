@@ -10,7 +10,6 @@ export default class OrderModel {
     FROM Trybesmith.Orders AS o INNER JOIN Trybesmith.Products as p 
     GROUP BY o.id;`;
     const [rows] = await this.connection.execute<IOrder[] & RowDataPacket[]>(sql);
-    console.log(rows);
     
     return rows;
   }
